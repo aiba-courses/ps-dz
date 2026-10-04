@@ -1,0 +1,32 @@
+.component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(9, 9, 15, 1);
+  box-shadow: 16px 16px 39px 6px rgba(0, 0, 0, 0.25);
+}
+
+.centerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  margin-bottom: 39px;
+}
+
+.text {
+  margin-bottom: 26px;
+  font-size: 24px;
+}
+
+.inputUserName {
+  margin-bottom: 17px;
+}
+
+.inputPassword {
+  margin-bottom: 39px;
+}
