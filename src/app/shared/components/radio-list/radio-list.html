@@ -1,0 +1,16 @@
+<div class="component">
+  @for(item of list(); track item.key) {
+    <div class="item"
+      (click)="onSelectItem(item.value)"
+    >
+      <img
+        [src]="(item.value === current) ? '/icons/radio-active-item.png' : '/icons/radio-item.svg'"
+        width="24"
+        height="24"
+        alt="radio"
+      />
+
+      <span>{{ item.label }}</span>
+    </div>
+  }
+</div>
