@@ -1,0 +1,12 @@
+<div class="component">
+  @for(item of navItems; track item.key) {
+    <app-nav-button
+      [text]="item.label"
+      [iconUrl]="item.iconUrl"
+      [iconUrlActive]="item.iconUrlActive"
+      [routerLink]="item.link"
+      routerLinkActive="active"
+      (clicked)="onNavClick()"
+    />
+  }
+</div>

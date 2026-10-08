@@ -1,0 +1,24 @@
+<div class="component">
+  <div class="block">
+    <app-search-input />
+  </div>
+
+  <div class="block">
+    <div class="title">Жанр</div>
+    <app-radio-list
+      [list]="genres"
+    />
+  </div>
+
+  <div class="block">
+    <div class="title">Дата выхода</div>
+    <app-from-to-date />
+  </div>
+
+  <div class="block">
+    <div class="title">Сортировать</div>
+    <app-radio-list
+      [list]="sort"
+    />
+  </div>
+</div>
