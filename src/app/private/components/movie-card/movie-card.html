@@ -1,0 +1,19 @@
+<div class="component">
+  <div class="cover">
+    <img [ngSrc]="data().posterUrl" width="210" height="310" alt="cover" />
+
+    <div class="favoriteSign">
+      <img [ngSrc]="data().isFavorite ? '/icons/favorite-star.svg' : '/icons/favorite-star-no.svg'" width="24" height="24" alt="favorite">
+    </div>
+  </div>
+
+  <div class="title">
+    {{ data().description }}
+  </div>
+
+  <div class="rating">
+    <app-rating
+      [rating]="data().rating"
+    />
+  </div>
+</div>

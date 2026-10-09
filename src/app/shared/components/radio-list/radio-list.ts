@@ -10,9 +10,13 @@ import { IRadioItem } from '../../interfaces/app';
 export class RadioList {
   list = input<IRadioItem[]>([]);
 
-  current: string | undefined = undefined;
+  selected: string | undefined = undefined;
+
+  get current() {
+    return this.selected || this.list().find(i => i)?.value;
+  }
 
   onSelectItem(value: string) {
-    this.current = value;
+    this.selected = value;
   }
 }
