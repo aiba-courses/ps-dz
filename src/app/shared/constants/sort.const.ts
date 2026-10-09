@@ -1,23 +1,19 @@
 export interface ISort {
-  key: string
-  value: string
-  label: string
+  id: string
+  name: string
 }
 
-export const sort: ISort[] = [
+export const SORT: ISort[] = [
   {
-    key: 'genre',
-    value: 'genre',
-    label: 'По жанру',
+    id: 'genre',
+    name: 'По жанру',
   },
     {
-    key: 'title',
-    value: 'title',
-    label: 'По названию',
+    id: 'title',
+    name: 'По названию',
   },
     {
-    key: 'rating',
-    value: 'rating',
-    label: 'По рейтингу',
+    id: 'rating',
+    name: 'По рейтингу',
   },
 ]

@@ -1,16 +1,16 @@
 <div class="component">
-  @for(item of list(); track item.key) {
+  @for(item of list(); track item.id) {
     <div class="item"
-      (click)="onSelectItem(item.value)"
+      (click)="onSelectItem(item.id)"
     >
       <img
-        [src]="(item.value === current) ? '/icons/radio-active-item.png' : '/icons/radio-item.svg'"
+        [src]="(item.id === current) ? '/icons/radio-active-item.png' : '/icons/radio-item.svg'"
         width="24"
         height="24"
         alt="radio"
       />
 
-      <span>{{ item.label }}</span>
+      <span>{{ item.name }}</span>
     </div>
   }
 </div>
