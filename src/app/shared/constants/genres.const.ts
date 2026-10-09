@@ -1,38 +1,17 @@
 export interface IGenre {
-  key: string
-  value: string
-  label: string
+  /** Уникальный id жанра */
+  id: string;
+  /** Отображаемое имя */
+  name: string;
+  /** slug для URL/фильтров */
+  slug?: string;
 }
 
-export const genres = [
-  {
-    key: 'all',
-    value: 'all',
-    label: 'Все',
-  },
-  {
-    key: 'melodrama',
-    value: 'melodrama',
-    label: 'Мелодрама',
-  },
-  {
-    key: 'fiction',
-    value: 'fiction',
-    label: 'Фантастика',
-  },
-  {
-    key: 'action',
-    value: 'action',
-    label: 'Боевик',
-  },
-  {
-    key: 'thriller',
-    value: 'thriller',
-    label: 'Триллер',
-  },
-  {
-    key: 'detective',
-    value: 'detective',
-    label: 'Детектив',
-  },
+export const GENRES: IGenre[] = [
+  { id: '0', name: 'Все', slug: 'all' },
+  { id: '1', name: 'Мелодрама', slug: 'melodrama' },
+  { id: '2', name: 'Фантастика', slug: 'fantasy' },
+  { id: '3', name: 'Боевик', slug: 'action' },
+  { id: '4', name: 'Триллер', slug: 'thriller' },
+  { id: '5', name: 'Детектив', slug: 'detective' },
 ];

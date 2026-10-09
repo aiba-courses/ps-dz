@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { SearchInput } from '../../../shared/components/search-input/search-input';
 import { RadioList } from '../../../shared/components/radio-list/radio-list';
 import { FromToDate } from '../../../shared/components/from-to-date/from-to-date';
-import { genres } from '../../../shared/constants/genres.const';
-import { sort } from '../../../shared/constants/sort.const';
+import { GENRES } from '../../../shared/constants/genres.const';
+import { SORT } from '../../../shared/constants/sort.const';
 
 @Component({
   imports: [SearchInput, RadioList, FromToDate],
@@ -12,6 +12,6 @@ import { sort } from '../../../shared/constants/sort.const';
   templateUrl: './content-control.html',
 })
 export class ContentControl {
-  protected readonly genres = genres;
-  protected readonly sort = sort;
+  protected readonly genres = GENRES;
+  protected readonly sort = SORT;
 }

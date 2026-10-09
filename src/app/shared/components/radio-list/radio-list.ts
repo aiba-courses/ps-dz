@@ -13,7 +13,7 @@ export class RadioList {
   selected: string | undefined = undefined;
 
   get current() {
-    return this.selected || this.list().find(i => i)?.value;
+    return this.selected || this.list().find(i => i)?.id;
   }
 
   onSelectItem(value: string) {
