@@ -1,0 +1,5 @@
+<div>
+  @for (item of starsRating; track $index) {
+    <img [ngSrc]="`/icons/ri-star-${(item) ? 'fill' : 'line'}.svg`" width="24" height="24" alt="star" />
+  }
+</div>
