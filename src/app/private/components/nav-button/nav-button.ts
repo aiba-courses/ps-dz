@@ -5,6 +5,7 @@ import {
   EventEmitter,
   inject,
   input,
+  output,
   Output,
   signal,
 } from '@angular/core';
@@ -28,8 +29,7 @@ export class NavButton implements AfterViewInit {
   iconUrlActive = input('');
   disabled = input<boolean>(false);
 
-  @Output()
-  clicked = new EventEmitter<Event>();
+  clicked = output<Event>();
 
   onClick(event: Event): void {
     if (!this.disabled()) {

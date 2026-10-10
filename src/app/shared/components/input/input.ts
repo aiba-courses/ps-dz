@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
 
 @Component({
   imports: [],
@@ -7,16 +7,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './input.html',
 })
 export class InputComponent {
-  @Input()
-  image: string | undefined = undefined
+  image = input<string | undefined>(undefined);
 
-  @Input()
-  value = '';
+  value = input('');
 
-  @Output()
-  valueChange: EventEmitter<string> = new EventEmitter<string>();
+  valueChange = output<string>();
 
   onInput(event: Event) {
-    this.valueChange.emit((event.target as HTMLInputElement).value)
+    this.valueChange.emit((event.target as HTMLInputElement).value);
   }
 }

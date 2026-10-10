@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, output } from '@angular/core';
 
 @Component({
   imports: [],
@@ -7,11 +7,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './password-input.html',
 })
 export class PasswordInput {
-  @Input()
-  value = '';
+  value = input('');
 
-  @Output()
-  valueChange: EventEmitter<string> = new EventEmitter<string>();
+  valueChange = output<string>();
 
   onInput(event: Event) {
     this.valueChange.emit((event.target as HTMLInputElement).value);

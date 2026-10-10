@@ -1,5 +1,5 @@
 <div class="component">
-  @for (item of movies; track item.id) {
+  @for (item of movies$ | async; track item.id) {
     <app-movie-card
       [data]="item"
     />
