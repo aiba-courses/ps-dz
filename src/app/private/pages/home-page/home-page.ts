@@ -1,10 +1,10 @@
-import { Component, Signal } from '@angular/core';
-import { MOVIES } from '../../../shared/constants/fake-films.const'
-import { IMovie } from '../../../shared/models/movie.model'
+import { Component, inject, OnInit, Signal } from '@angular/core';
 import { MovieCard } from '../../components/movie-card/movie-card'
-import { delay, Observable, of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
+import { StoreService } from '../../../shared/services/store.service';
+import { FAVORITES } from '../../../shared/constants/fake-favorites.const';
+import { MOVIES } from '../../../shared/constants/fake-films.const';
 
 @Component({
   imports: [MovieCard, AsyncPipe],
@@ -12,6 +12,12 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './home-page.scss',
   templateUrl: './home-page.html',
 })
-export class HomePage {
-  movies$: Observable<IMovie[]> = of(MOVIES).pipe(delay(100));
+export class HomePage implements OnInit {
+  private _store = inject(StoreService);
+
+  movies = toSignal(this._store.getValueAsync('movies'), { initialValue: [] });
+
+  ngOnInit() {
+    this._store.setValue('movies', MOVIES);
+  }
 }
