@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { IRadioItem } from '../../interfaces/app';
 
 @Component({
@@ -10,13 +10,15 @@ import { IRadioItem } from '../../interfaces/app';
 export class RadioList {
   list = input<IRadioItem[]>([]);
 
-  selected: string | undefined = undefined;
+  selected = input<any | null>();
 
   get current() {
-    return this.selected || this.list().find(i => i)?.id;
+    return this.selected() || this.list().find((i) => i)?.id;
   }
 
-  onSelectItem(value: string) {
-    this.selected = value;
+  radioChange = output<string>()
+
+  onSelectItem(value: any) {
+    this.radioChange.emit(value);
   }
 }

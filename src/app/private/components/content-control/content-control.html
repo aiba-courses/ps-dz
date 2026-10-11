@@ -6,7 +6,9 @@
   <div class="block">
     <div class="title">Жанр</div>
     <app-radio-list
-      [list]="genres"
+      [list]="genres()"
+      [selected]="filters()?.genre"
+      (radioChange)="onGenreChange($event)"
     />
   </div>
 
@@ -17,8 +19,12 @@
 
   <div class="block">
     <div class="title">Сортировать</div>
-    <app-radio-list
-      [list]="sort"
-    />
+    @if (filters()) {
+      <app-radio-list
+        [list]="sortOptions"
+        [selected]="filters()?.sort"
+        (radioChange)="onSortChange($event)"
+      />
+    }
   </div>
 </div>
