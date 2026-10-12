@@ -10,6 +10,11 @@
         Неверно заполнено поле пароль
       </div>
     }
+    @if(error()) {
+      <div class="error">
+        {{ error() }}
+      </div>
+    }
 
     <div class="logo">
       <img src="/images/logo.png" alt="logo" />

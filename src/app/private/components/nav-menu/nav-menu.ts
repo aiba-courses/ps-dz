@@ -12,5 +12,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class NavMenu {
   navItems: IMenu[] = navItems;
 
+
+
   onNavClick() {}
 }

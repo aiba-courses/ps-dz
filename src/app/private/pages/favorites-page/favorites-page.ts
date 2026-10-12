@@ -7,6 +7,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { StoreService } from '../../../shared/services/store.service';
 import { MOVIES } from '../../../shared/constants/fake-films.const';
+import { HttpService } from '../../../shared/services/http.service';
 
 @Component({
   imports: [MovieCard, AsyncPipe],
@@ -15,11 +16,13 @@ import { MOVIES } from '../../../shared/constants/fake-films.const';
   templateUrl: './favorites-page.html',
 })
 export class FavoritesPage implements OnInit {
+  private _httpService = inject(HttpService);
   private _store = inject(StoreService);
 
   favorites = toSignal(this._store.getValueAsync('favorites'), { initialValue: [] });
 
   ngOnInit() {
-    this._store.setValue('favorites', FAVORITES);
+    // this._store.setValue('favorites', FAVORITES);
+    this._httpService.getFavorites().subscribe();
   }
 }
