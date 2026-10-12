@@ -8,6 +8,7 @@ import { Component, EventEmitter, input, Input, output, Output } from '@angular/
 })
 export class Button {
   text = input('');
+  disabled = input(false);
 
   btnClick = output<void>();
 

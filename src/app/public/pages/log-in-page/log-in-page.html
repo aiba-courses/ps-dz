@@ -1,5 +1,16 @@
 <div class="component">
-  <div class="centerWrapper">
+  <form class="centerWrapper" [formGroup]="form">
+    @if (form.controls.username.touched && form.controls.username.errors) {
+      <div class="error">
+        Неверно заполнено поле пользователь
+      </div>
+    }
+    @if (form.controls.password.touched && form.controls.password.errors) {
+      <div class="error">
+        Неверно заполнено поле пароль
+      </div>
+    }
+
     <div class="logo">
       <img src="/images/logo.png" alt="logo" />
     </div>
@@ -10,22 +21,21 @@
 
     <div class="inputUserName">
       <app-input
-        [value]="userName"
-        image="/icons/UserRounded.svg"
-        (valueChange)="onUserNameChange($event)"
+        prefixIcon="/icons/UserRounded.svg"
+        formControlName="username"
       />
     </div>
 
     <div class="inputPassword">
       <app-password-input
-        [value]="password"
-        (valueChange)="onPasswordChange($event)"
+        formControlName="password"
       />
     </div>
 
     <app-button
       text="Войти"
+      [disabled]="isDisabled()"
       (btnClick)="onLoginClick()"
     />
-  </div>
+  </form>
 </div>

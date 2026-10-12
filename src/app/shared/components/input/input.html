@@ -1,11 +1,15 @@
 <div class="component">
-  @if (image()) {
-    <img [src]="image()" />
+  @if (prefixIcon(); as prefIcon) {
+    <img [ngSrc]="prefIcon" width="24" height="24" alt="prefix icon" />
   }
 
   <input
     type="text"
-    [value]="value()"
+    [value]="value"
     (input)="onInput($event)"
   />
+
+  @if (postfixIcon(); as postIcon) {
+    <img [ngSrc]="postIcon" width="24" height="24" alt="prefix icon" />
+  }
 </div>

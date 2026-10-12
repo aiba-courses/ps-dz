@@ -1,6 +1,7 @@
 <button
   class="component"
   type="button"
+  [disabled]="disabled()"
   (click)="onClick()"
 >
   {{ text() }}
