@@ -7,7 +7,10 @@ import { SORT } from '../../../shared/constants/sort.const';
 import { IAppStore, StoreService } from '../../../shared/services/store.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, map, tap } from 'rxjs';
+import { catchError, debounceTime, EMPTY, map, switchMap, tap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpService } from '../../../shared/services/http.service';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [SearchInput, RadioList, FromToDate, ReactiveFormsModule],
@@ -16,8 +19,14 @@ import { debounceTime, map, tap } from 'rxjs';
   templateUrl: './content-control.html',
 })
 export class ContentControl implements OnInit {
+  private _httpService = inject(HttpService);
   private _store = inject(StoreService);
   private _destroyRef = inject(DestroyRef);
+  private _router = inject(Router);
+
+  constructor() {
+    this._httpService.getGenres().subscribe();
+  }
 
   sortOptions = [
     { id: 'genre', name: 'Жанр' },
@@ -28,9 +37,15 @@ export class ContentControl implements OnInit {
   genres = toSignal(this._store.getValueAsync('genres'), { initialValue: [] });
   filters = toSignal(this._store.getValueAsync('filters'));
 
-  ngOnInit() {
-    this._store.setValue('genres', GENRES);
+  private _buildParams(f?: any): HttpParams {
+    let params = new HttpParams();
+    if (f?.name) params = params.set('name', f.name);
+    if (f?.genre && f.genre !== '0') params = params.set('genre', f.genre);
+    if (f?.sort) params = params.set('sort', f.sort);
+    return params;
+  }
 
+  ngOnInit() {
     const f = this._store.getValue('filters');
     this.form.patchValue(
       { search: f.name, genres: f.genre ?? '', sortBy: f.sort },
@@ -42,7 +57,12 @@ export class ContentControl implements OnInit {
         debounceTime(500),
         map(() => this.form.getRawValue()),
         map((v) => ({ name: v.search, genre: v.genres || null, sort: v.sortBy })),
-        tap((filters) => this._store.updateData({ filters })),
+        switchMap((filters) => {
+          const req$ = this._router.url.includes('/favorites')
+            ? this._httpService.getFavorites(this._buildParams(filters))
+            : this._httpService.getMovies(this._buildParams(filters));
+          return req$.pipe(catchError(() => EMPTY));
+        }),
         takeUntilDestroyed(this._destroyRef),
       )
       .subscribe();

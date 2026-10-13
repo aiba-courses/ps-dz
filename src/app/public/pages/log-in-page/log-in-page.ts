@@ -5,7 +5,7 @@ import { Button } from '../../../shared/components/button/button';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { tap } from 'rxjs';
+import { catchError, of, take, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -16,23 +16,34 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class LogInPage implements OnInit {
   private _destroyRef = inject(DestroyRef);
-  authService = inject(AuthService);
-  router = inject(Router);
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
+
+  error = signal('');
 
   protected onLoginClick() {
-    if (!this.form.controls.username.errors && !this.form.controls.password.errors) {
-      this.authService.login();
-      this.router.navigate(['/private/home']);
-    }
+    this._authService
+      .login$(this.form.controls.username.value, this.form.controls.password.value ?? '')
+      .pipe(
+        take(1),
+        tap(() => this._router.navigate(['private'])),
+        catchError((err) => {
+          this.error.set(err);
+          return of(err);
+        }),
+      )
+      .subscribe();
   }
 
   isDisabled = signal(true);
 
   ngOnInit() {
-    this.form.valueChanges.pipe(
-      tap(() => this.isDisabled.set(this.form.invalid)),
-      takeUntilDestroyed(this._destroyRef)
-    ).subscribe();
+    this.form.valueChanges
+      .pipe(
+        tap(() => this.isDisabled.set(this.form.invalid)),
+        takeUntilDestroyed(this._destroyRef),
+      )
+      .subscribe();
   }
 
   form = new FormGroup({

@@ -5,6 +5,7 @@ import { AsyncPipe } from '@angular/common';
 import { StoreService } from '../../../shared/services/store.service';
 import { FAVORITES } from '../../../shared/constants/fake-favorites.const';
 import { MOVIES } from '../../../shared/constants/fake-films.const';
+import { HttpService } from '../../../shared/services/http.service';
 
 @Component({
   imports: [MovieCard, AsyncPipe],
@@ -13,11 +14,14 @@ import { MOVIES } from '../../../shared/constants/fake-films.const';
   templateUrl: './home-page.html',
 })
 export class HomePage implements OnInit {
+  private _httpService = inject(HttpService);
   private _store = inject(StoreService);
 
   movies = toSignal(this._store.getValueAsync('movies'), { initialValue: [] });
 
   ngOnInit() {
-    this._store.setValue('movies', MOVIES);
+
+
+    this._httpService.getMovies().subscribe();
   }
 }
